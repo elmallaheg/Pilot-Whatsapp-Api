@@ -19,7 +19,7 @@ import FluentIcon from 'shared/components/FluentIcon/DashboardIcon.vue';
 
 const i18n = createI18n({
   legacy: false, // https://github.com/intlify/vue-i18n/issues/1902
-  locale: 'en',
+  locale: 'ar',
   messages: i18nMessages,
 });
 
@@ -34,33 +34,3 @@ app.use(router);
 app.component('fluent-icon', FluentIcon);
 
 if (window.errorLoggingConfig) {
-  Sentry.init({
-    app,
-    dsn: window.errorLoggingConfig,
-    denyUrls: [
-      // Chrome extensions
-      /^chrome:\/\//i,
-      /chrome-extension:/i,
-      /extensions\//i,
-
-      // Locally saved copies
-      /file:\/\//i,
-
-      // Safari extensions.
-      /safari-web-extension:/i,
-      /safari-extension:/i,
-    ],
-    integrations: [Sentry.browserTracingIntegration({ router })],
-    ignoreErrors: [
-      'ResizeObserver loop completed with undelivered notifications',
-    ],
-  });
-}
-
-initializeChatwootEvents();
-initializeAnalyticsEvents();
-initalizeRouter();
-
-window.onload = () => {
-  app.mount('#app');
-};
